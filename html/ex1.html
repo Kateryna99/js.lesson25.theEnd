@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/font.css">
+    <link rel="stylesheet" href="../css/tasks.css">
+    <title>Document</title>
+</head>
+<body>
+<div class="wrapper-second">
+
+
+</div>
+<script>
+    'use string'
+///Задача 2. Дано Shop  -- клас, що містить список товарів (масив об’єктів класу Product (назва, ціна, кількість одиниць).
+    // Додати можливість ітератора до класу Shop, щоб при ітеруванні для кожного елмента виводився рядок «товар-загальна вартість»
+class Product {
+    constructor(title,price,amount) {
+        this.title = title
+        this.price = price
+        this.amount = amount
+    }
+    [Symbol.toPrimitive](hint){
+        let result
+        switch (hint) {
+            case 'string': result = `${this.title} - ${this.price}$`
+                break
+            default: result = 'Something went wrong. Try again'
+        }
+        return result
+    }
+}
+const products = [
+    new Product('Potatoes',3,345),
+    new Product('Tomatoes',4,1000),
+    new Product('Onion',1,3423),
+    new Product('Sugar',5,9599),
+    new Product('Oil',12,10000),
+    new Product('Cucumber',3.5,9322),
+    new Product('Cheese',34,3556),
+    new Product('Sausage',45,993),
+    new Product('Pasta',4.9,4000),
+    new Product('Rice',3,5000)
+]
+    class Shop {
+        constructor(products) {
+            this.products = products
+            this.currentIndex = 0
+        }
+        *[Symbol.iterator](){
+            for (let i = this.currentIndex; i < this.products.length; i++){
+                yield this.products[this.currentIndex]
+                this.currentIndex++
+            }
+        }
+    }
+    let shop = new Shop(products)
+
+    for (let item of shop){
+        document.write(`${String(item)} <br>`)
+    }
+
+</script>
+</body>
+</html>
